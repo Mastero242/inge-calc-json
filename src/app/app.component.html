@@ -1,0 +1,64 @@
+<h2>Ingé Calc</h2>
+
+<form [formGroup]="paramsFormGroup">
+  <ul>
+    <li *ngFor="let prop of properties | keyvalue">
+      <label [ngClass]="{ calculated: isDependent(prop.key) }"
+        >{{ prop.key }}
+      </label>
+      <input
+        [ngClass]="{ calculated: isDependent(prop.key) }"
+        type="number"
+        formControlName="{{ prop.key }}"
+      />
+    </li>
+  </ul>
+</form>
+
+<!-- <form [formGroup]="paramsFormGroup">
+  <ul>
+    <li *ngFor="let prop of properties | keyvalue">
+      <hr *ngIf="prop.value.isComputed" />
+      <label [ngClass]="{ calculated: prop.value.isComputed }"
+        >{{ prop.key }} =
+      </label>
+
+      <ng-container
+        formGroupName="value"
+        [ngSwitch]="prop.value.type"
+        *ngIf="!prop.value.isComputed"
+        class="text-primary"
+      >
+        <input
+          *ngSwitchDefault
+          type="text"
+          [formControlName]="prop.value.value"
+        />
+
+        <input
+          *ngSwitchCase="PropertyType.Boolean"
+          type="checkbox"
+          [formControlName]="prop.value.value"
+        />
+
+        <input
+          *ngSwitchCase="PropertyType.Integer"
+          type="number"
+          step="1"
+          [formControlName]="prop.value.value"
+        />
+
+        <input
+          *ngSwitchCase="PropertyType.Decimal"
+          type="number"
+          step="0.01"
+          formControlName="value"
+        />
+      </ng-container>
+
+      <ng-container *ngIf="prop.value.isComputed" class="text-primary">
+        <span>{{ prop.value.value }} </span>
+      </ng-container>
+    </li>
+  </ul>
+</form> -->
