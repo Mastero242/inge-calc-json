@@ -1,5 +1,6 @@
 import { PropertyCode } from './common/enums';
 import { Property, PropertyType } from './property';
+import * as data from './Data/property-data.json';
 
 export class Properties {
   static readonly DependentProperties = {
@@ -24,6 +25,30 @@ export class Properties {
     } else {
       return undefined;
     }
+  }
+
+  static getData(property: PropertyCode): any | undefined {
+    let rawValues = data as unknown as RawPropertyValue[];
+    console.log(rawValues);
+    rawValues.map(
+      (x: any) =>
+        ({
+          propertyCode: x.Code,
+          // value: this.getValue(x.DefaultValue, x.Type),
+          type: x.Type,
+          settings: JSON.parse(x.Settings, (key, value) => {
+            if (value && typeof value === 'object')
+              for (var k in value) {
+                if (/^[A-Z]/.test(k) && Object.hasOwnProperty.call(value, k)) {
+                  value[k.charAt(0).toLowerCase() + k.substring(1)] = value[k];
+                  delete value[k];
+                }
+              }
+            return value;
+          }),
+        } as unknown as Property)
+    );
+    console.log(rawValues);
   }
 
   A = 3;
@@ -56,3 +81,19 @@ export class Properties {
   //   isComputed: true,
   // });
 }
+
+export interface RawPropertyValue {
+  Id: number;
+  IsComputed: number;
+  DefaultValue: string;
+  Created: string;
+  Updated: string;
+  CreatedById: string;
+  UpdatedById: string;
+  Code: string;
+  Name: string;
+  Unit: string;
+  Settings: string;
+  Type: PropertyType;
+}
+
