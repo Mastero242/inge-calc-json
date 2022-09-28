@@ -1,4 +1,5 @@
-import { DependentProperties } from './property';
+import { PropertyCode } from './common/enums';
+import { DependentProperties } from './dependent-properties';
 import * as data from './Data/property-data.json';
 import * as settingsdata from './Data/setting-data.json';
 import {
@@ -48,7 +49,7 @@ export class Properties {
 
   static getSettings(): Setting[] {
     if (!this.settings) {
-      this.settings = this.parseRawSettingToSetting(rawSettings);
+      this.settings = this.parseRawSettingToSetting(settingsdata.settings);
     }
     return this.settings;
   }

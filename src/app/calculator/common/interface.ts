@@ -1,11 +1,9 @@
+import { PropertyCode, PropertyType } from './enums';
+
 export interface RawPropertyValue {
   Id: number;
   IsComputed: number;
   DefaultValue: string;
-  Created: string;
-  Updated: string;
-  CreatedById: string;
-  UpdatedById: string;
   Code: string;
   Name: string;
   Unit: string;

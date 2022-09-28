@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { PropertyCode } from './common/enums';
 import * as Engine from './params';
 import { Properties } from './properties';
+import { DependentProperties } from './dependent-properties';
 
 @Injectable()
 export class CalculatorService {
   constructor() {}
 
   async calculate(properties: Record<PropertyCode, any>) {
-    const keys = Object.keys(Properties.DependentProperties);
+    const keys = Object.keys(DependentProperties);
     keys.forEach(async (key: PropertyCode) => {
       const args = Properties.getDependentValues(key, properties);
       properties[key] = await CalculatorService.callByName(
@@ -17,20 +18,6 @@ export class CalculatorService {
         ...args
       );
     });
-
-    // const keys = Object.keys(properties);
-    // keys.forEach(async (key: PropertyCode) => {
-    //   if (properties[key].isComputed) {
-    //     const args = properties[key].getDependentValues(properties);
-    //     properties[key].value = await CalculatorService.callByName(
-    //       key,
-    //       Engine,
-    //       ...args
-    //     );
-    //   }
-    // });
-
-    // Properties.getData(PropertyCode.A);
 
     return properties;
   }

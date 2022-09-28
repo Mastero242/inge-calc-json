@@ -4,7 +4,8 @@ import { debounceTime, Subscription } from 'rxjs';
 import { CalculatorService } from './calculator/calculator.service';
 import { PropertyCode, PropertyType } from './calculator/common/enums';
 import { Properties } from './calculator/properties';
-import { DependentProperties } from './calculator/property';
+import { DependentProperties } from './calculator/dependent-properties';
+import { PropertyValue } from './calculator/common/interface';
 
 @Component({
   selector: 'my-app',

@@ -13,7 +13,9 @@
     "target": "ES2017",
     "resolveJsonModule": true,
     "typeRoots": ["node_modules/@types"],
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "allowSyntheticDefaultImports": true,
+    "skipLibCheck": true
   },
   "angularCompilerOptions": {
     "enableIvy": true,
