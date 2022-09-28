@@ -38,7 +38,6 @@ export class Properties {
   }
 
   static getData(): PropertyValue[] {
-    
     if (!this.defaultPropertyValues) {
       let rawValues = data.properties as unknown as RawPropertyValue[];
       this.defaultPropertyValues = this.parseRawPropertyValueToPropertyValue(
