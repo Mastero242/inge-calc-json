@@ -1,3 +1,7 @@
+import { from } from 'rxjs';
+
+export * from './enums-settings';
+
 export enum PropertyCode {
   ABCO = 'ABCO',
   ACC = 'ACC',
