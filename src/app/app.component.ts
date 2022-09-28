@@ -3,7 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, Subscription } from 'rxjs';
 import { CalculatorService } from './calculator/calculator.service';
 import { PropertyCode } from './calculator/common/enums';
-import { Properties } from './calculator/properties';
+import { Properties, PropertyValue } from './calculator/properties';
 import { Property, PropertyType } from './calculator/property';
 
 @Component({
@@ -34,13 +34,22 @@ export class AppComponent {
   }
 
   constructor(private fb: FormBuilder, private calculator: CalculatorService) {
-    const initialProperties = new Properties();
+    // const initialProperties = new Properties();
+    // this.properties = Object.assign(
+    //   {},
+    //   ...Object.keys(initialProperties).map((x) => ({
+    //     [x]: initialProperties[x],
+    //   }))
+    // );
+
+    const initialProperties = Properties.getData();
     this.properties = Object.assign(
       {},
-      ...Object.keys(initialProperties).map((x) => ({
-        [x]: initialProperties[x],
+      ...initialProperties.map((x: PropertyValue) => ({
+        [x.propertyCode]: x.value,
       }))
     );
+
     this.paramsFormGroup = this.fb.group(this.properties);
   }
 

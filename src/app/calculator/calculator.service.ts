@@ -30,7 +30,7 @@ export class CalculatorService {
     //   }
     // });
 
-    Properties.getData(PropertyCode.A);
+    // Properties.getData(PropertyCode.A);
 
     return properties;
   }

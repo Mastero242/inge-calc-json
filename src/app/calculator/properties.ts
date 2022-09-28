@@ -3,6 +3,8 @@ import { Property, PropertyType } from './property';
 import * as data from './Data/property-data.json';
 
 export class Properties {
+  private static defaultPropertyValues: PropertyValue[];
+
   static readonly DependentProperties = {
     [PropertyCode.C]: [PropertyCode.A, PropertyCode.B],
     [PropertyCode.D]: [PropertyCode.A, PropertyCode.B],
@@ -27,14 +29,28 @@ export class Properties {
     }
   }
 
-  static getData(property: PropertyCode): any | undefined {
-    let rawValues = data as unknown as RawPropertyValue[];
-    console.log(rawValues);
-    rawValues.map(
-      (x: any) =>
+  static getData(): PropertyValue[] {
+    console.log(data[10].DefaultValue);
+
+    if (!this.defaultPropertyValues) {
+      let rawValues = data as unknown as RawPropertyValue[];
+      console.log(rawValues);
+      this.defaultPropertyValues = this.parseRawPropertyValueToPropertyValue(
+        rawValues as Array<RawPropertyValue>
+      );
+    }
+    return this.defaultPropertyValues;
+  }
+
+  static parseRawPropertyValueToPropertyValue(
+    raws: RawPropertyValue[]
+  ): PropertyValue[] {
+    console.log(raws);
+    return raws.map(
+      (x: RawPropertyValue) =>
         ({
           propertyCode: x.Code,
-          // value: this.getValue(x.DefaultValue, x.Type),
+          value: x.DefaultValue, //this.getValue(x.DefaultValue, x.Type),
           type: x.Type,
           settings: JSON.parse(x.Settings, (key, value) => {
             if (value && typeof value === 'object')
@@ -46,40 +62,9 @@ export class Properties {
               }
             return value;
           }),
-        } as unknown as Property)
+        } as unknown as PropertyValue)
     );
-    console.log(rawValues);
   }
-
-  A = 3;
-  B = 2;
-  C = 0;
-  D = 0;
-  E = 0;
-
-  // A = new Property({
-  //   code: PropertyCode.A,
-  //   dependentProperties: [],
-  //   defaultValue: 5,
-  //   type: PropertyType.Decimal,
-  //   isComputed: false,
-  // });
-
-  // B = new Property({
-  //   code: PropertyCode.B,
-  //   dependentProperties: [],
-  //   defaultValue: 2,
-  //   type: PropertyType.Decimal,
-  //   isComputed: false,
-  // });
-
-  // F = new Property({
-  //   code: PropertyCode.F,
-  //   dependentProperties: [PropertyCode.A, PropertyCode.B],
-  //   defaultValue: 0,
-  //   type: PropertyType.Decimal,
-  //   isComputed: true,
-  // });
 }
 
 export interface RawPropertyValue {
@@ -97,3 +82,16 @@ export interface RawPropertyValue {
   Type: PropertyType;
 }
 
+export interface PropertyValue {
+  propertyId: number;
+  propertyCode: string;
+  settings: PropertySettings;
+  value: any;
+}
+
+export interface PropertySettings {
+  precision?: number;
+  min?: string;
+  max?: string;
+  bold?: boolean;
+}
