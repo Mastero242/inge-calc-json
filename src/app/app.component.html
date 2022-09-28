@@ -9,7 +9,6 @@
         </label>
         <input
           [ngClass]="{ calculated: isDependent(prop.key) }"
-          type="number"
           formControlName="{{ prop.key }}"
       /></ng-container>
     </li>
@@ -25,7 +24,6 @@
         </label>
         <input
           [ngClass]="{ calculated: isDependent(prop.key) }"
-          type="number"
           formControlName="{{ prop.key }}"
           [readonly]="true"
       /></ng-container>

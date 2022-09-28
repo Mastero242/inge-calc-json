@@ -14,7 +14,7 @@ import { PropertyValue } from './calculator/common/interface';
 })
 export class AppComponent {
   subscription: Subscription = new Subscription();
-  debounceTime = 500;
+  debounceTime = 5000;
   paramsFormGroup: FormGroup;
   properties: [PropertyCode, any][];
 

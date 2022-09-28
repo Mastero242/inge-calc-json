@@ -8,12 +8,10 @@ import { DependentProperties } from './dependent-properties';
 export class CalculatorService {
   constructor() {}
 
-  async calculate(properties:[PropertyCode, any][]) {
+  async calculate(properties: [PropertyCode, any][]) {
     const keys = Object.keys(DependentProperties);
     keys.forEach(async (key: PropertyCode) => {
       const args = Properties.getDependentValues(key, properties);
-      // console.log(properties);
-      // console.log(properties[key]);
 
       properties[key] = await CalculatorService.callByName(
         key,
@@ -38,6 +36,8 @@ export class CalculatorService {
     for (let i = 0; i < namespaces.length; i++) {
       context = context[namespaces[i]];
     }
+
+    // console.log(func);    console.log(context);    console.log(func);
 
     return func ? context[func].apply(context, args) : undefined;
   }
