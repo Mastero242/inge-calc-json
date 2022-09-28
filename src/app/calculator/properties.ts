@@ -13,19 +13,23 @@ export class Properties {
   private static defaultPropertyValues: PropertyValue[];
   private static settings: Setting[];
 
-  // static readonly DependentProperties = {
-  //   [PropertyCode.C]: [PropertyCode.A, PropertyCode.B],
-  //   [PropertyCode.D]: [PropertyCode.A, PropertyCode.B],
-  //   [PropertyCode.E]: [PropertyCode.A, PropertyCode.B],
-  // };
-
   static isDependent(propertyCode: string) {
+    return propertyCode in DependentProperties;
+  }
+
+  static isComputed(propertyCode: string) {
+    return this.defaultPropertyValues.find(
+      (x) => x.propertyCode === propertyCode
+    ).isComputed;
+  }
+
+  static getType(propertyCode: string) {
     return propertyCode in DependentProperties;
   }
 
   static getDependentValues(
     property: PropertyCode,
-    properties: Record<PropertyCode, any>
+    properties: [PropertyCode, any][]
   ): any[] | undefined {
     if (property in properties) {
       let values = [];
@@ -44,7 +48,7 @@ export class Properties {
         rawValues as Array<RawPropertyValue>
       );
     }
-    console.log(this.defaultPropertyValues);
+    // console.log(this.defaultPropertyValues);
     return this.defaultPropertyValues;
   }
 
@@ -61,6 +65,8 @@ export class Properties {
     return raws.map(
       (x: RawPropertyValue) =>
         ({
+          propertyId: x.Id,
+          isComputed: !!x.IsComputed,
           propertyCode: x.Code,
           value: x.DefaultValue, //this.getValue(x.DefaultValue, x.Type),
           type: x.Type,

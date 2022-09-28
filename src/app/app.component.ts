@@ -16,7 +16,7 @@ export class AppComponent {
   subscription: Subscription = new Subscription();
   debounceTime = 500;
   paramsFormGroup: FormGroup;
-  properties: Record<PropertyCode, any>;
+  properties: [PropertyCode, any][];
 
   // hack to be able to use the enumeration in the HTML
   public get PropertyCode() {
@@ -31,19 +31,32 @@ export class AppComponent {
   }
 
   public isDependent(propertyCode: string) {
-    return Properties.isDependent(propertyCode);
+    return Properties.isComputed(propertyCode);
   }
 
   constructor(private fb: FormBuilder, private calculator: CalculatorService) {
     const initialProperties = Properties.getData();
+    initialProperties.sort(function (x, y) {
+      return x === y ? 0 : x.isComputed ? 1 : -1;
+    });
+
+    console.log(initialProperties);
+
     this.properties = Object.assign(
       {},
-      ...initialProperties.map((x: PropertyValue) => ({
-        [x.propertyCode]: x.value,
-      }))
+      ...initialProperties.map((x: PropertyValue) => {
+        const container = {};
+
+        container[x.propertyCode] = x.value;
+
+        return container;
+      })
     );
 
     this.paramsFormGroup = this.fb.group(this.properties);
+
+    console.log(this.properties);
+    console.log(this.paramsFormGroup);
   }
 
   ngOnInit(): void {

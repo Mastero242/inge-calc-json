@@ -7,3 +7,7 @@ p {
 label {
   color: blue;
 }
+
+input:not(.calculated) {
+  background-color: lightgray;
+}

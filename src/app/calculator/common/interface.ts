@@ -14,8 +14,10 @@ export interface RawPropertyValue {
 export interface PropertyValue {
   propertyId: number;
   propertyCode: string;
-  settings: PropertySettings;
   value: any;
+  settings: PropertySettings;
+  type: PropertyType;
+  isComputed: boolean;
 }
 
 export interface PropertySettings {

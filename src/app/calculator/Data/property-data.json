@@ -2,7 +2,7 @@
   "properties": [
     {
       "Id": 62,
-      "IsComputed": 1,
+      "IsComputed": 0,
       "DefaultValue": "-",
       "Code": "-",
       "Unit": "-",

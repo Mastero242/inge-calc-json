@@ -8,7 +8,7 @@ import { DependentProperties } from './dependent-properties';
 export class CalculatorService {
   constructor() {}
 
-  async calculate(properties: Record<PropertyCode, any>) {
+  async calculate(properties:[PropertyCode, any][]) {
     const keys = Object.keys(DependentProperties);
     keys.forEach(async (key: PropertyCode) => {
       const args = Properties.getDependentValues(key, properties);
