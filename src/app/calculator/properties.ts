@@ -38,12 +38,14 @@ export class Properties {
   }
 
   static getData(): PropertyValue[] {
+    
     if (!this.defaultPropertyValues) {
       let rawValues = data.properties as unknown as RawPropertyValue[];
       this.defaultPropertyValues = this.parseRawPropertyValueToPropertyValue(
         rawValues as Array<RawPropertyValue>
       );
     }
+    console.log(this.defaultPropertyValues);
     return this.defaultPropertyValues;
   }
 
@@ -57,7 +59,6 @@ export class Properties {
   static parseRawPropertyValueToPropertyValue(
     raws: RawPropertyValue[]
   ): PropertyValue[] {
-    console.log(raws);
     return raws.map(
       (x: RawPropertyValue) =>
         ({

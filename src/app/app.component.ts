@@ -35,14 +35,6 @@ export class AppComponent {
   }
 
   constructor(private fb: FormBuilder, private calculator: CalculatorService) {
-    // const initialProperties = new Properties();
-    // this.properties = Object.assign(
-    //   {},
-    //   ...Object.keys(initialProperties).map((x) => ({
-    //     [x]: initialProperties[x],
-    //   }))
-    // );
-
     const initialProperties = Properties.getData();
     this.properties = Object.assign(
       {},

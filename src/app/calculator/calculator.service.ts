@@ -30,6 +30,9 @@ export class CalculatorService {
    * @returns function return or undefined if functionName is empty
    */
   static callByName(functionName: string, context: any, ...args: any) {
+    // console.log(functionName);
+    // console.log(args);
+    // console.log(context);
     const namespaces = functionName.split('.');
     const func = namespaces.pop();
     for (let i = 0; i < namespaces.length; i++) {
