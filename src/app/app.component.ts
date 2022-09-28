@@ -14,7 +14,7 @@ import { PropertyValue } from './calculator/common/interface';
 })
 export class AppComponent {
   subscription: Subscription = new Subscription();
-  debounceTime = 500;
+  debounceTime = 5000;
   paramsFormGroup: FormGroup;
   properties: Record<PropertyCode, any>;
 
@@ -72,6 +72,8 @@ export class AppComponent {
     this.properties = await this.calculator.calculate(
       this.paramsFormGroup.value
     );
+    // console.log(this.properties);
+
     this.paramsFormGroup.patchValue(this.properties);
   }
 

@@ -12,6 +12,9 @@ export class CalculatorService {
     const keys = Object.keys(DependentProperties);
     keys.forEach(async (key: PropertyCode) => {
       const args = Properties.getDependentValues(key, properties);
+      // console.log(properties);
+      // console.log(properties[key]);
+
       properties[key] = await CalculatorService.callByName(
         key,
         Engine,
@@ -30,9 +33,6 @@ export class CalculatorService {
    * @returns function return or undefined if functionName is empty
    */
   static callByName(functionName: string, context: any, ...args: any) {
-    // console.log(functionName);
-    // console.log(args);
-    // console.log(context);
     const namespaces = functionName.split('.');
     const func = namespaces.pop();
     for (let i = 0; i < namespaces.length; i++) {
