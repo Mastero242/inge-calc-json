@@ -8,6 +8,6 @@ label {
   color: blue;
 }
 
-input:not(.calculated) {
+input.calculated {
   background-color: lightgray;
 }

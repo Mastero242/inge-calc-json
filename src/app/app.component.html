@@ -1,12 +1,25 @@
 <h2>Ingé Calc</h2>
 
 <form [formGroup]="paramsFormGroup">
+  <ul>
+    <li *ngFor="let prop of properties | keyvalue | filter: false">
+      <ng-container *ngIf="!isDependent(prop.key)">
+        <label [ngClass]="{ calculated: isDependent(prop.key) }"
+          >{{ prop.key }}
+        </label>
+        <input
+          [ngClass]="{ calculated: isDependent(prop.key) }"
+          type="number"
+          formControlName="{{ prop.key }}"
+      /></ng-container>
+    </li>
+  </ul>
 
-
+  <hr />
 
   <ul>
-    <li *ngFor="let prop of properties | keyvalue">
-      <ng-container *ngIf="!isDependent(prop.key)">
+    <li *ngFor="let prop of properties | keyvalue | filter: true">
+      <ng-container *ngIf="isDependent(prop.key)">
         <label [ngClass]="{ calculated: isDependent(prop.key) }"
           >{{ prop.key }}
         </label>
