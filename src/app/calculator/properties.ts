@@ -1,7 +1,6 @@
-import { PropertyCode } from './common/enums';
 import { DependentProperties } from './property';
 import * as data from './Data/property-data.json';
-import * as settingsdata from './Data/setting-data.json'
+import * as settingsdata from './Data/setting-data.json';
 import {
   PropertyValue,
   RawPropertyValue,
