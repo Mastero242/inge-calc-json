@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime, Subscription } from 'rxjs';
 import { CalculatorService } from './calculator/calculator.service';
-import { PropertyCode } from './calculator/common/enums';
-import { Properties, PropertyValue } from './calculator/properties';
-import { Property, PropertyType } from './calculator/property';
+import { PropertyCode, PropertyType } from './calculator/common/enums';
+import { Properties } from './calculator/properties';
+import { DependentProperties } from './calculator/property';
 
 @Component({
   selector: 'my-app',

@@ -1,18 +1,26 @@
 import { PropertyCode } from './common/enums';
-import { Property, PropertyType } from './property';
+import { DependentProperties } from './property';
 import * as data from './Data/property-data.json';
+import * as settingsdata from './Data/setting-data.json'
+import {
+  PropertyValue,
+  RawPropertyValue,
+  RawSetting,
+  Setting,
+} from './common/interface';
 
 export class Properties {
   private static defaultPropertyValues: PropertyValue[];
+  private static settings: Setting[];
 
-  static readonly DependentProperties = {
-    [PropertyCode.C]: [PropertyCode.A, PropertyCode.B],
-    [PropertyCode.D]: [PropertyCode.A, PropertyCode.B],
-    [PropertyCode.E]: [PropertyCode.A, PropertyCode.B],
-  };
+  // static readonly DependentProperties = {
+  //   [PropertyCode.C]: [PropertyCode.A, PropertyCode.B],
+  //   [PropertyCode.D]: [PropertyCode.A, PropertyCode.B],
+  //   [PropertyCode.E]: [PropertyCode.A, PropertyCode.B],
+  // };
 
   static isDependent(propertyCode: string) {
-    return propertyCode in Properties.DependentProperties;
+    return propertyCode in DependentProperties;
   }
 
   static getDependentValues(
@@ -21,7 +29,7 @@ export class Properties {
   ): any[] | undefined {
     if (property in properties) {
       let values = [];
-      let codes = Properties.DependentProperties[property];
+      let codes = DependentProperties[property];
       codes.forEach((code) => values.push(properties[code]));
       return values;
     } else {
@@ -30,16 +38,20 @@ export class Properties {
   }
 
   static getData(): PropertyValue[] {
-    console.log(data[10].DefaultValue);
-
     if (!this.defaultPropertyValues) {
-      let rawValues = data as unknown as RawPropertyValue[];
-      console.log(rawValues);
+      let rawValues = data.properties as unknown as RawPropertyValue[];
       this.defaultPropertyValues = this.parseRawPropertyValueToPropertyValue(
         rawValues as Array<RawPropertyValue>
       );
     }
     return this.defaultPropertyValues;
+  }
+
+  static getSettings(): Setting[] {
+    if (!this.settings) {
+      this.settings = this.parseRawSettingToSetting(rawSettings);
+    }
+    return this.settings;
   }
 
   static parseRawPropertyValueToPropertyValue(
@@ -65,33 +77,15 @@ export class Properties {
         } as unknown as PropertyValue)
     );
   }
-}
 
-export interface RawPropertyValue {
-  Id: number;
-  IsComputed: number;
-  DefaultValue: string;
-  Created: string;
-  Updated: string;
-  CreatedById: string;
-  UpdatedById: string;
-  Code: string;
-  Name: string;
-  Unit: string;
-  Settings: string;
-  Type: PropertyType;
-}
-
-export interface PropertyValue {
-  propertyId: number;
-  propertyCode: string;
-  settings: PropertySettings;
-  value: any;
-}
-
-export interface PropertySettings {
-  precision?: number;
-  min?: string;
-  max?: string;
-  bold?: boolean;
+  static parseRawSettingToSetting(raws: RawSetting[]): Setting[] {
+    return raws.map(
+      (x: RawSetting) =>
+        ({
+          listCode: x.ListCode,
+          propertyCode: x.PropertyCode,
+          propertyValue: x.Value,
+        } as Setting)
+    );
+  }
 }

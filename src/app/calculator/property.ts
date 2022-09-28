@@ -1,39 +1,14 @@
 import { PropertyCode } from './common/enums';
 
-export class Property {
-  code: PropertyCode;
-  dependentProperties: PropertyCode[];
-  type: PropertyType;
-  name: string;
-  isComputed: boolean;
+import { PropertyCode } from './common/enums';
 
-  defaultValue: any;
-  unit: string;
-  settings?: PropertySettings;
+let DependentProperties = {
+  [PropertyCode.C]: [PropertyCode.A, PropertyCode.B],
+  [PropertyCode.D]: [PropertyCode.A, PropertyCode.B],
+  [PropertyCode.E]: [PropertyCode.A, PropertyCode.B],
+};
 
-  value: any;
-
-  calculateMethod: any;
-
-  public constructor(init?: Partial<Property>) {
-    Object.assign(this, init);
-    if (this.value === undefined) this.value = this.defaultValue;
-  }
-
-  public getDependentValues(
-    properties: Record<PropertyCode, any>
-  ): any[] | undefined {
-    if (this.code in properties) {
-      let values = [];
-      this.dependentProperties.forEach((code) =>
-        values.push(properties[code].value)
-      );
-      return values;
-    } else {
-      return undefined;
-    }
-  }
-}
+export { DependentProperties };
 
 export interface PropertySettings {
   precision?: number;
@@ -42,10 +17,4 @@ export interface PropertySettings {
   bold?: boolean;
 }
 
-export enum PropertyType {
-  String = 'String',
-  Boolean = 'Boolean',
-  Integer = 'Integer',
-  Decimal = 'Decimal',
-  List = 'List',
-}
+
