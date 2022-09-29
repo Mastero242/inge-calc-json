@@ -1,15 +1,6 @@
 {
   "properties": [
     {
-      "Id": 62,
-      "IsComputed": 0,
-      "DefaultValue": "-",
-      "Code": "-",
-      "Unit": "-",
-      "Settings": null,
-      "Type": "List"
-    },
-    {
       "Id": 48,
       "IsComputed": 1,
       "DefaultValue": "0.091930",
