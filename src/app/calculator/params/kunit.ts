@@ -9,5 +9,7 @@ import { getSettingValue } from '../common/functions';
  * @returns KUNIT; ex: 1000
  */
 export async function KUNIT(UNIT: EnumUNIT): Promise<number> {
+  // console.log(await getSettingValue(UNIT, PropertyCode.KUNIT));
+
   return await getSettingValue(UNIT, PropertyCode.KUNIT);
 }

@@ -118,6 +118,7 @@ export class AppComponent {
       this.paramsFormGroup.value
     );
 
+    // console.log(this.properties);
     this.paramsFormGroup.patchValue(this.properties);
   }
 

@@ -9,17 +9,16 @@ export class CalculatorService {
   constructor() {}
 
   async calculate(properties: [PropertyCode, any][]) {
-    // console.log('calculate');
-    // console.log(properties[PropertyCode.AGF]);
     const keys = Object.keys(DependentProperties);
     keys.forEach(async (key: PropertyCode) => {
-      // console.log('calculate');
       const args = Properties.getDependentValues(key, properties);
       properties[key] = await CalculatorService.callByName(
         key,
         Engine,
         ...args
       );
+      // console.log(key);
+      // console.log(properties[key]);
     });
 
     return properties;
