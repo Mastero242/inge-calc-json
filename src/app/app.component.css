@@ -11,3 +11,28 @@ label {
 input.calculated {
   background-color: lightgray;
 }
+
+.wrapper {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 200px);
+  gap: 20px;
+  list-style: none;
+  padding: 0;
+}
+.wrapper li {
+  border: 1px solid #ccc;
+}
+
+.wrapper li label {
+  display: block;
+  object-fit: cover;
+  width: 96%;
+  text-align: center;
+}
+
+.wrapper li input {
+  display: block;
+  object-fit: cover;
+  width: 96%;
+  height: 15px;
+}

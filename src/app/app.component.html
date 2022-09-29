@@ -1,7 +1,7 @@
 <h2>Ingé Calc</h2>
 
 <form [formGroup]="paramsFormGroup">
-  <ul>
+  <ul class="wrapper">
     <li *ngFor="let prop of properties | keyvalue | filter: false">
       <ng-container *ngIf="!isDependent(prop.key)">
         <label [ngClass]="{ calculated: isDependent(prop.key) }"
@@ -15,8 +15,10 @@
   </ul>
 
   <hr />
+  <hr />
+  <hr />
 
-  <ul>
+  <ul class="wrapper">
     <li *ngFor="let prop of properties | keyvalue | filter: true">
       <ng-container *ngIf="isDependent(prop.key)">
         <label [ngClass]="{ calculated: isDependent(prop.key) }"
