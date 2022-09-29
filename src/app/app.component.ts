@@ -18,6 +18,10 @@ export class AppComponent {
   paramsFormGroup: FormGroup;
   properties: [PropertyCode, any][];
 
+  propertyCodeEnum = PropertyCode;
+  enumKeys = [];
+  filterProp = '';
+
   // hack to be able to use the enumeration in the HTML
   public get PropertyCode() {
     return PropertyCode;
@@ -34,11 +38,14 @@ export class AppComponent {
     return Properties.isComputed(propertyCode);
   }
 
+  public getType(propertyCode: string) {
+    return Properties.getType(propertyCode);
+  }
+
   constructor(private fb: FormBuilder, private calculator: CalculatorService) {
-    const initialProperties = Properties.getData();
-    initialProperties.sort(function (x, y) {
-      return x === y ? 0 : x.isComputed ? 1 : -1;
-    });
+    this.enumKeys = Object.keys(this.propertyCodeEnum);
+
+    let initialProperties = Properties.getData(this.filterProp);
 
     console.log(initialProperties);
 
@@ -54,9 +61,6 @@ export class AppComponent {
     );
 
     this.paramsFormGroup = this.fb.group(this.properties);
-
-    console.log(this.properties);
-    console.log(this.paramsFormGroup);
   }
 
   ngOnInit(): void {
@@ -68,6 +72,8 @@ export class AppComponent {
           this.calculate();
         })
     );
+
+    console.log(this.subscription);
   }
 
   getControlLabel(type: string) {
@@ -81,13 +87,52 @@ export class AppComponent {
     return 0;
   }
 
+  updateData() {
+    let initialProperties = Properties.getData(this.filterProp);
+
+    console.log(initialProperties);
+
+    this.properties = Object.assign(
+      {},
+      ...initialProperties.map((x: PropertyValue) => {
+        const container = {};
+
+        container[x.propertyCode] = x.value;
+
+        return container;
+      })
+    );
+
+    this.paramsFormGroup = this.fb.group(this.properties);
+    // this.paramsFormGroup.patchValue(this.properties);
+
+    console.log(this.properties);
+  }
+
   async calculate() {
     this.properties = await this.calculator.calculate(
       this.paramsFormGroup.value
     );
-    // console.log(this.properties);
 
     this.paramsFormGroup.patchValue(this.properties);
+  }
+
+  onChange(propertyCodeValue) {
+    console.log(propertyCodeValue);
+    this.filterProp = propertyCodeValue;
+
+    console.log(this.subscription);
+
+    this.subscription.unsubscribe();
+
+    this.updateData();
+
+    this.calculate();
+    this.subscription = this.paramsFormGroup.valueChanges
+      .pipe(debounceTime(this.debounceTime))
+      .subscribe(() => {
+        this.calculate();
+      });
   }
 
   ngOnDestroy(): void {

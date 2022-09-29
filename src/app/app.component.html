@@ -1,5 +1,14 @@
 <h2>Ingé Calc</h2>
 
+<select (change)="onChange($any($event.target).value)">
+  <option value="" selected>All</option>
+  <option *ngFor="let name of enumKeys" [value]="name">
+    {{ propertyCodeEnum[name] }}
+  </option>
+</select>
+
+<hr />
+
 <form [formGroup]="paramsFormGroup">
   <ul class="wrapper">
     <li *ngFor="let prop of properties | keyvalue | filter: false">
@@ -7,10 +16,53 @@
         <label [ngClass]="{ calculated: isDependent(prop.key) }"
           >{{ prop.key }}
         </label>
-        <input
+
+        <ng-container [ngSwitch]="getType(prop.key)">
+          <input
+            *ngSwitchDefault
+            type="text"
+            [ngClass]="{ calculated: isDependent(prop.key) }"
+            formControlName="{{ prop.key }}"
+          />
+
+          <input
+            *ngSwitchCase="PropertyType.Boolean"
+            type="checkbox"
+            [ngClass]="{ calculated: isDependent(prop.key) }"
+            formControlName="{{ prop.key }}"
+          />
+
+          <input
+            *ngSwitchCase="PropertyType.Integer"
+            type="number"
+            [ngClass]="{ calculated: isDependent(prop.key) }"
+            formControlName="{{ prop.key }}"
+          />
+
+          <input
+            *ngSwitchCase="PropertyType.Decimal"
+            type="number"
+            [ngClass]="{ calculated: isDependent(prop.key) }"
+            formControlName="{{ prop.key }}"
+          />
+
+          <select
+            *ngSwitchCase="PropertyType.List"
+            (change)="onChange($any($event.target).value)"
+          >
+            <option value="" selected>All</option>
+            <option *ngFor="let name of enumKeys" [value]="name">
+              {{ propertyCodeEnum[name] }}
+            </option>
+          </select>
+        </ng-container>
+
+        <!-- <input
+          type="number"
           [ngClass]="{ calculated: isDependent(prop.key) }"
           formControlName="{{ prop.key }}"
-      /></ng-container>
+        /> -->
+      </ng-container>
     </li>
   </ul>
 

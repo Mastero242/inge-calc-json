@@ -24,7 +24,9 @@ export class Properties {
   }
 
   static getType(propertyCode: string) {
-    return propertyCode in DependentProperties;
+    return this.defaultPropertyValues.find(
+      (x) => x.propertyCode === propertyCode
+    ).type;
   }
 
   static getDependentValues(
@@ -41,14 +43,19 @@ export class Properties {
     }
   }
 
-  static getData(): PropertyValue[] {
+  static getData(propertyCode): PropertyValue[] {
     if (!this.defaultPropertyValues) {
       let rawValues = data.properties as unknown as RawPropertyValue[];
       this.defaultPropertyValues = this.parseRawPropertyValueToPropertyValue(
         rawValues as Array<RawPropertyValue>
       );
     }
-    // console.log(this.defaultPropertyValues);
+    if (propertyCode != '') {
+      return this.filterProperties(propertyCode);
+    } else {
+      //All
+      return this.defaultPropertyValues;
+    }
     return this.defaultPropertyValues;
   }
 
@@ -59,7 +66,7 @@ export class Properties {
     return this.settings;
   }
 
-  static parseRawPropertyValueToPropertyValue(
+  private static parseRawPropertyValueToPropertyValue(
     raws: RawPropertyValue[]
   ): PropertyValue[] {
     return raws.map(
@@ -84,7 +91,7 @@ export class Properties {
     );
   }
 
-  static parseRawSettingToSetting(raws: RawSetting[]): Setting[] {
+  private static parseRawSettingToSetting(raws: RawSetting[]): Setting[] {
     return raws.map(
       (x: RawSetting) =>
         ({
@@ -93,5 +100,29 @@ export class Properties {
           propertyValue: x.Value,
         } as Setting)
     );
+  }
+
+  private static filterProperties(propertyCode): PropertyValue[] {
+    console.log('filter prop in');
+    console.log(propertyCode);
+
+    let values = [];
+    values.push(
+      this.defaultPropertyValues.find((pr) => pr.propertyCode === propertyCode)
+    );
+
+    let deps = DependentProperties[propertyCode];
+
+    console.log(deps);
+
+    deps.forEach((code) =>
+      values.push(
+        this.defaultPropertyValues.find((pr) => pr.propertyCode === code)
+      )
+    );
+    console.log(values);
+
+    console.log('filter prop out');
+    return values;
   }
 }

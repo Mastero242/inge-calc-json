@@ -27,6 +27,5 @@ export async function ABCO(
     (((FED * KUNIT) / 1000000) * ACCO) / Z0CO +
     (((HED * KUNIT) / 1000000) * (GTC + Z0CO)) / Z0CO;
   let result = (ftd - (HED * KUNIT) / 1000000) / (BCO * SRDM);
-
   return result;
 }
