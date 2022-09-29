@@ -11,7 +11,9 @@ let DependentProperties = {
     PropertyCode.Z0CO,
     PropertyCode.GTC,
   ],
+  [PropertyCode.ACC]: [PropertyCode.STA],
   [PropertyCode.ACCB]: [PropertyCode.STA, PropertyCode.LFL],
+  [PropertyCode.ACT]: [PropertyCode.STA],
 };
 
 export { DependentProperties };

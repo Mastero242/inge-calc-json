@@ -8,6 +8,7 @@ import { EnumLFL, EnumSTA } from '../common/enums';
  * @returns alpha_cc for Bending/Flexion (coeff.)
  */
 export async function ACCB(STA: EnumSTA, LFL: EnumLFL): Promise<number> {
+
   switch (STA) {
     case EnumSTA.EN1992_1_1_BS:
     case EnumSTA.EN1992_2_BS:
