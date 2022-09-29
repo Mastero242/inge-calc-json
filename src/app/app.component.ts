@@ -42,6 +42,10 @@ export class AppComponent {
     return Properties.getType(propertyCode);
   }
 
+  public getListValues(propertyCode: string) {
+    return Properties.getListValues(propertyCode);
+  }
+
   constructor(private fb: FormBuilder, private calculator: CalculatorService) {
     this.enumKeys = Object.keys(this.propertyCodeEnum);
 

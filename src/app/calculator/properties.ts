@@ -1,4 +1,21 @@
-import { PropertyCode } from './common/enums';
+import {
+  EnumSTA,
+  EnumCON,
+  EnumAGF,
+  PropertyCode,
+  EnumKCO,
+  EnumTYC,
+  EnumUNIT,
+  EnumLFL,
+  EnumECF,
+  EnumCBAR,
+  EnumCDF,
+  Enum_D,
+  EnumSFS,
+  EnumSREP,
+  EnumENT,
+  EnumSTD,
+} from './common/enums';
 import { DependentProperties } from './dependent-properties';
 import * as data from './Data/property-data.json';
 import * as settingsdata from './Data/setting-data.json';
@@ -40,6 +57,44 @@ export class Properties {
       return values;
     } else {
       return undefined;
+    }
+  }
+
+  static getListValues(propertyCode): any[] {
+    // need more generic / data in json ?
+
+    switch (propertyCode) {
+      case PropertyCode.STA:
+        return Object.keys(EnumSTA);
+      case PropertyCode.CON:
+        return Object.keys(EnumCON);
+      case PropertyCode.TYC:
+        return Object.keys(EnumTYC);
+      case PropertyCode.KCO:
+        return Object.keys(EnumKCO);
+      case PropertyCode.UNIT:
+        return Object.keys(EnumUNIT);
+      case PropertyCode.LFL:
+        return Object.keys(EnumLFL);
+      case PropertyCode.CDF:
+        return Object.keys(EnumCDF);
+      case PropertyCode.AGF:
+        return Object.keys(EnumAGF);
+      case PropertyCode.ECF:
+        return Object.keys(EnumECF);
+      case PropertyCode.CBAR:
+        return Object.keys(EnumCBAR);
+      case PropertyCode.SFS:
+        return Object.keys(EnumSFS);
+      case PropertyCode.SREP:
+        return Object.keys(EnumSREP);
+      case PropertyCode.ENT:
+        return Object.keys(EnumENT);
+      case PropertyCode.STD:
+        return Object.keys(EnumSTD);
+
+      // case PropertyCode.D:
+      //   return Object.keys(Enum_D);
     }
   }
 
@@ -103,7 +158,7 @@ export class Properties {
   }
 
   private static filterProperties(propertyCode): PropertyValue[] {
-    console.log('filter prop in');
+    console.log('filter prop');
     console.log(propertyCode);
 
     let values = [];
@@ -121,8 +176,6 @@ export class Properties {
       )
     );
     console.log(values);
-
-    console.log('filter prop out');
     return values;
   }
 }

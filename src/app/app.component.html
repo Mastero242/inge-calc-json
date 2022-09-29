@@ -48,11 +48,10 @@
 
           <select
             *ngSwitchCase="PropertyType.List"
-            (change)="onChange($any($event.target).value)"
+            formControlName="{{ prop.key }}"
           >
-            <option value="" selected>All</option>
-            <option *ngFor="let name of enumKeys" [value]="name">
-              {{ propertyCodeEnum[name] }}
+            <option *ngFor="let name of getListValues(prop.key)">
+              {{ name }}
             </option>
           </select>
         </ng-container>
