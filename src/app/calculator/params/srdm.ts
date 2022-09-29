@@ -1,6 +1,6 @@
 import { getFcd } from "../common/functions";
 
-export default async function SRDM(
+export async function SRDM(
   ACC: number,
   FCK: number,
   GACF: number,

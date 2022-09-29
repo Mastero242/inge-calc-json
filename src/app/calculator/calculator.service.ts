@@ -38,6 +38,16 @@ export class CalculatorService {
     for (let i = 0; i < namespaces.length; i++) {
       context = context[namespaces[i]];
     }
-    return func ? context[func].apply(context, args) : undefined;
+
+    try {
+      let output = func ? context[func].apply(context, args) : undefined;
+      return output;
+    } catch (error) {
+      console.log(error);
+      console.log(functionName);
+      console.log(context);
+      console.log(args);
+      return undefined;
+    }
   }
 }

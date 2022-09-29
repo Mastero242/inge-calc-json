@@ -8,6 +8,6 @@ import { getSettingValue } from '../common/functions';
  * @param UNIT Unité de mesure
  * @returns KUNIT; ex: 1000
  */
-export default async function KUNIT(UNIT: EnumUNIT): Promise<number> {
+export async function KUNIT(UNIT: EnumUNIT): Promise<number> {
   return await getSettingValue(UNIT, PropertyCode.KUNIT);
 }

@@ -30,6 +30,25 @@ let DependentProperties = {
     PropertyCode.FCTM,
     PropertyCode.NEDT,
   ],
+
+  [PropertyCode.KUNIT]: [PropertyCode.UNIT],
+  [PropertyCode.SRDM]: [
+    PropertyCode.ACC,
+    PropertyCode.FCK,
+    PropertyCode.GACF,
+    PropertyCode.K1S654,
+    PropertyCode.N622,
+  ],
+  [PropertyCode.Z0CO]: [
+    PropertyCode.FED,
+    PropertyCode.HED,
+    PropertyCode.HCC,
+    PropertyCode.KUNIT,
+    PropertyCode.ACCO,
+    PropertyCode.GTC,
+    PropertyCode.BCO,
+    PropertyCode.SRDM,
+  ],
 };
 
 export { DependentProperties };

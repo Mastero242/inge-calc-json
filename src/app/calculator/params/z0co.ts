@@ -15,7 +15,7 @@ import { CalculatorError } from '../common/interface';
  * @param SRDM
  * @returns z_0 (m)
  */
-export default async function Z0CO(
+export async function Z0CO(
   FED: number,
   HED: number,
   HCC: number,
