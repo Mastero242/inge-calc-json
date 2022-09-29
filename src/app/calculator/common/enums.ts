@@ -273,3 +273,11 @@ export enum PropertyType {
   Decimal = 'Decimal',
   List = 'List',
 }
+
+export enum ErrorLevel {
+  DEBUG,
+  INFO,
+  WARNING,
+  ERROR,
+  CRITICAL,
+}

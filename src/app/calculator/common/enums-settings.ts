@@ -115,3 +115,8 @@ export enum EnumSTD {
   /** (1) Poutre continu ou sur appui simple - DEFAULT */ CBEAM = 'CBEAM',
   /** (2) Console */ CANTILEVER = 'CANTILEVER',
 }
+
+export enum TextColor {
+  GREEN = ' _GREEN_',
+  RED = ' _RED_',
+}
